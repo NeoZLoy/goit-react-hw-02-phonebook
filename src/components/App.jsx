@@ -42,14 +42,39 @@ export class App extends Component {
 
     getContacts = () => {
       const {contacts, filter} = this.state;
+      
       return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
     }
-  
+    
+    isContactsAdded = () => {
+      if(this.state.contacts.length === 0){
+        return false;
+      } else{
+        return true;
+      }
+    }
+
+    renderContacts() {
+      if(this.isContactsAdded() === true){
+        const visibleContacts = this.getContacts();
+        return (
+          <>
+            <ContactsFilter filter = {this.filter} onNameFilter = {this.changeNameFilter}/>
+            <ContactsList contacts = {visibleContacts} onDelete = {this.onContactDelete}/>
+          </>
+        )
+      } else {
+        return(
+          <>
+          <p>You don't have any contacts. Create a new one!</p>
+          </>
+        )
+      }
+    }
      
     
 
   render(){ 
-    const visibleContacts = this.getContacts();
     return (
     <>
       <Section>
@@ -57,8 +82,7 @@ export class App extends Component {
       </Section>
       <Section>
         <h2>Contacts:</h2>
-        <ContactsFilter filter = {this.filter} onNameFilter = {this.changeNameFilter}/>
-        <ContactsList contacts = {visibleContacts} onDelete = {this.onContactDelete}/>
+        {this.renderContacts()}
       </Section>
       </>
 )}}

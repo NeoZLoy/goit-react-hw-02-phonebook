@@ -1,9 +1,10 @@
 import { Form, Formik, Field } from "formik"
+import { StyledFilter, StyledTitle } from "./ContactsFilter.styled"
 
 export const ContactsFilter = ({filter, onNameFilter}) => {
     return(
-        <div>
-            <h3>Find contacts by name:</h3>
+        <StyledFilter>
+            <StyledTitle>Find contacts by name:</StyledTitle>
             <Formik
             initialValues={{
                 searchName:"",
@@ -13,7 +14,7 @@ export const ContactsFilter = ({filter, onNameFilter}) => {
                     <Field name="searchName" placeholder="Contact name to search..." />
                 </Form>
             </Formik>
-        </div>
+        </StyledFilter>
         
     )
 }
